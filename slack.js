@@ -20,13 +20,10 @@ const sendSlackMsg = async (type, crawlerData) => {
         }
     }
 
-    const result = await Axios.post(WEBHOOK_URL, JSON.stringify(configMessageBody(crawlerData)))
+    return await Axios.post(WEBHOOK_URL, JSON.stringify(configMessageBody(crawlerData)))
         .catch(err => {
             console.error(err)
         })
-    if (result) {
-        console.log(`업데이트 완료 :${crawlerData}`)
-    }
 }
 
 function makeAttachment(crawlerData) {

@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "서버 시작",
-            "program": "${workspaceFolder}/app.js",
+            "program": "${workspaceFolder}/api.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
