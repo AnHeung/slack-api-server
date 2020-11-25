@@ -15,7 +15,7 @@ const sendSlackMsg = async (type, crawlerData) => {
                 WEBHOOK_URL = process.env.HOT_DEAL_SLACK_URL
                 break;
             case 'manatoki':
-                WEBHOOK_URL = MANATOKI_SLACK_URL
+                WEBHOOK_URL = process.env.MANATOKI_SLACK_URL
                 break;
         }
     }
