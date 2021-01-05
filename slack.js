@@ -22,7 +22,7 @@ const sendSlackMsg = async (type, crawlerData) => {
 
     return await Axios.post(WEBHOOK_URL, JSON.stringify(configMessageBody(type, crawlerData)))
         .catch(err => {
-            console.error(err)
+            console.error(`slackSend Message 오류 : ${err}`)
             return false
         })
 }

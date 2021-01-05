@@ -13,7 +13,7 @@ router.post('/send', async (req, res) => {
         }
     } catch (err) {
         console.error(err)
-        res.status(404).send(errorHandle.errMsg('슬렉 메시지 전송 성공 실패'))
+        res.status(404).send(errorHandle.errMsg('슬렉 메시지 전송 실패'))
     }
 });
 
