@@ -7,7 +7,7 @@ const Axios = require('axios');
 
 const sendSlackMsg = async (type, crawlerData) => {
 
-    let WEBHOOK_URL = process.env.SLAKC_TEST_URL
+    let WEBHOOK_URL = process.env.SLACK_TEST_URL
 
     if (process.env.NODE_ENV == 'prod') {
         switch (type) {
