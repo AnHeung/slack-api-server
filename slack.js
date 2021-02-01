@@ -7,8 +7,8 @@ const Axios = require('axios');
 
 const sendSlackMsg = async (type, crawlerData) => {
 
-    let WEBHOOK_URL = process.env.NODE_ENV === 'prod' ? makeSlackUrl(type) : process.env.SLACK_TEST_URL
-    let messageBody = configMessageBody(type, crawlerData) || {}
+    const WEBHOOK_URL = process.env.NODE_ENV === 'prod' ? makeSlackUrl(type) : process.env.SLACK_TEST_URL
+    const messageBody = configMessageBody(type, crawlerData) || {}
 
     return await Axios.post(WEBHOOK_URL, JSON.stringify(messageBody))
         .catch(err => {
@@ -95,14 +95,14 @@ function makeTorrentUpdateAttachment(crawlerData) {
 
     return crawlerData.reduce((acc, data) => {
 
-        const { category, title, size , submitter, torrentLink, date } = data
+        const { category, title, size, submitter, torrentLink, date } = data
 
         const attchment =  // attachments, here we also use long attachment to use more space
         {
             "color": "#2eb886",
             "fields": [
-                { "title": "사이트", "value": category , "short": false },
-                { "title": "제목", "value": title , "short": false },
+                { "title": "사이트", "value": category, "short": false },
+                { "title": "제목", "value": title, "short": false },
                 { "title": "업데이트 날짜", "value": date, "short": false },
                 { "title": "자막자", "value": submitter, "short": false },
                 { "title": "파일 사이즈", "value": size, "short": false },
@@ -123,13 +123,16 @@ function makeTorrentUpdateAttachment(crawlerData) {
 }
 
 function configMessageBody(type, crawlerData) {
-
-    const attchment = makeAttachment(type, crawlerData)
-    const title = crawlerData.length > 0 ? crawlerData[0].title : "푸쉬알림"
-
-    return {
-        "text": title,
-        "attachments": attchment
+    try {
+        const attchment = makeAttachment(type, crawlerData)
+        const title = crawlerData.length > 0 ? crawlerData[0].title : "푸쉬알림"
+        return {
+            "text": title,
+            "attachments": attchment
+        }
+    } catch (e) {
+        console.error(`configMessageBody error :${e}`)
+        return false
     }
 }
 
