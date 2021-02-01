@@ -18,7 +18,7 @@ const sendSlackMsg = async (type, crawlerData) => {
 }
 
 function makeSlackUrl(type) {
-    let WEBHOOK_URL = SLACK_TEST_URL
+    let WEBHOOK_URL = process.env.SLACK_TEST_URL
     switch (type) {
         case 'hotdeal':
             WEBHOOK_URL = process.env.HOT_DEAL_SLACK_URL
