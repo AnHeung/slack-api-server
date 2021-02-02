@@ -29,6 +29,9 @@ function makeSlackUrl(type) {
         case 'torrent_update':
             WEBHOOK_URL = process.env.TORRENT_CRWALING_URL
             break;
+        case 'image_update':
+            WEBHOOK_URL = process.env.IMAGE_UPDATE_URL
+            break;
     }
     return WEBHOOK_URL
 }
@@ -44,6 +47,9 @@ function makeAttachment(type, data) {
             break;
         case 'torrent_update':
             attachment = makeTorrentUpdateAttachment(data)
+            break;
+        case 'image_update':
+            attachment = makeImageUpdateAttachment(data)
             break;
     }
     return attachment;
@@ -82,6 +88,63 @@ function makeHotDealAttachment(crawlerData) {
                     "text": "보러가기", // text on the button 
                     "style": "danger",
                     "url": url // url the button will take the user if clicked
+                }
+            ]
+        }
+
+        acc.push(attchment)
+        return acc;
+    }, [])
+}
+
+function makeImageUpdateAttachment(crawlerData) {
+
+    return crawlerData.reduce((acc, data) => {
+
+        const { category, fileName, format, url } = data
+
+        const attchment =  // attachments, here we also use long attachment to use more space
+        {
+            "blocks": [
+                {
+                    "type": "header",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "이미지 크롤링",
+                        "emoji": true
+                    }
+                },
+                {
+                    "type": "section",
+                    "fields": [
+                        {
+                            "type": "mrkdwn",
+                            "text": `*카테고리*\n${category}`
+                        },
+                        {
+                            "type": "mrkdwn",
+                            "text": `*파일명:*\n${fileName}`
+                        }
+                    ]
+                },
+                {
+                    "type": "section",
+                    "fields": [
+                        {
+                            "type": "mrkdwn",
+                            "text": `*Type:*\n${format}`
+                        }
+                    ]
+                },
+                {
+                    "type": "image",
+                    "title": {
+                        "type": "plain_text",
+                        "text": "Please enjoy this photo of a kitten"
+                    },
+                    "block_id": `image_${fileName}`,
+                    "image_url": url,
+                    "alt_text": "이미지 정보."
                 }
             ]
         }
