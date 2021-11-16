@@ -9,7 +9,7 @@ router.post('/send', async (req, res) => {
 
         if (keywordData) {
             const result = await sendSlackMsg(type, keywordData)
-            return result ? res.status(200).send(errorHandle.successMsg('슬렉 메시지 전송 성공')) : res.status(404).send(errorHandle.errMsg('슬렉 메시지 전송 성공 실패'))
+            return result ? res.status(200).send(errorHandle.successMsg('슬렉 메시지 전송 성공')) : res.status(404).send(errorHandle.errMsg('슬렉 메시지 전송 실패'))
         }
         res.status(200).send(errorHandle.errMsg('슬렉 메시지 전송 실패 키워드를 입력해주세요'))
     } catch (err) {
