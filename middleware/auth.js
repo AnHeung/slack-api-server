@@ -1,5 +1,5 @@
 const {errMsg} = require('../errorHandle')
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {    
     const authKey = req.headers[process.env.API_KEY];
     console.error(` 결과값 : ${JSON.stringify(req.headers)}`)
