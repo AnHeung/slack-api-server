@@ -4,6 +4,7 @@ module.exports = (req, res, next) => {
     const authKey = req.headers[process.env.API_KEY];
     console.error(`authKey ${authKey}`)
     console.error(`process.env.API_KEY ${process.env.API_KEY}`)
+    console.error(`req.headers ${req.headers.common[process.env.API_KEY]}`)
     if (!authKey || authKey !== process.env.API_KEY_VALUE) {
       throw 'not matched key';
     } else {
