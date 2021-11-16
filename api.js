@@ -6,6 +6,7 @@ require('dotenv-flow').config({
 const {apiPath} = require('./appConstants');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const auth = require('./middleware/auth')
 
 const swaggerDefinition = {
   info: { // API informations (required)
@@ -44,6 +45,6 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use('/slack', require('./routes/slacks'))
+app.use('/slack',auth, require('./routes/slacks'))
 
 app.listen(port, () => console.log(`Server listening on port ${port}`))

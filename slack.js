@@ -1,8 +1,3 @@
-require('dotenv-flow').config({
-    node_env: process.env.NODE_ENV || 'dev',
-    silent: true
-});
-
 const Axios = require('axios');
 
 const sendSlackMsg = async (type, crawlerData) => {
